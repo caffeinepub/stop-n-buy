@@ -21,12 +21,11 @@ module {
     };
   };
 
-  // First non-anonymous principal that logs in becomes admin automatically.
-  // If admin is already assigned, all new callers become regular users.
-  public func initialize(state : AccessControlState, caller : Principal, adminToken : Text, userProvidedToken : Text) {
+  // First principal that logs in becomes admin automatically. All subsequent principals become users.
+  public func initialize(state : AccessControlState, caller : Principal, _adminToken : Text, _userProvidedToken : Text) {
     if (caller.isAnonymous()) { return };
     switch (state.userRoles.get(caller)) {
-      case (?_) {};
+      case (?_) {}; // already registered, do nothing
       case (null) {
         if (not state.adminAssigned) {
           state.userRoles.add(caller, #admin);
