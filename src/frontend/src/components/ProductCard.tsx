@@ -52,7 +52,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
   const inWishlist =
     wishlist?.items.some((item) => item.product.id === product.id) ?? false;
-  const price = (Number(product.price) / 100).toFixed(2);
+  const price = (Number(product.price) / 100).toFixed(0);
   const stars = Math.round(product.rating);
   const hasImage = product.imageUrl && product.imageUrl.trim() !== "";
 
@@ -151,7 +151,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           </span>
         </div>
 
-        <span className="text-lg font-extrabold text-navy">${price}</span>
+        <span className="text-lg font-extrabold text-navy">₹{price}</span>
 
         <Button
           data-ocid={`products.item.${index + 1}.button`}

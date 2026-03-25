@@ -72,11 +72,11 @@ export default function OrderConfirmationModal({
                         {item.product.name} ×{Number(item.quantity)}
                       </span>
                       <span className="font-semibold text-navy ml-2">
-                        $
+                        ₹
                         {(
                           (Number(item.price) * Number(item.quantity)) /
                           100
-                        ).toFixed(2)}
+                        ).toFixed(0)}
                       </span>
                     </div>
                   ))}
@@ -88,7 +88,7 @@ export default function OrderConfirmationModal({
                 </div>
                 <div className="flex justify-between font-bold text-navy border-t border-border pt-2 mt-2">
                   <span>Total</span>
-                  <span>${(Number(order.totalPrice) / 100).toFixed(2)}</span>
+                  <span>₹{(Number(order.totalPrice) / 100).toFixed(0)}</span>
                 </div>
               </div>
 

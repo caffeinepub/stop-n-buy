@@ -28,7 +28,7 @@ export default function CartSidebar({
   const updateQuantity = useUpdateCartQuantity();
   const placeOrder = usePlaceOrder();
 
-  const totalPrice = (Number(cart?.totalPrice ?? 0) / 100).toFixed(2);
+  const totalPrice = (Number(cart?.totalPrice ?? 0) / 100).toFixed(0);
   const isEmpty = !cart?.items.length;
 
   const handlePlaceOrder = () => {
@@ -177,11 +177,11 @@ export default function CartSidebar({
                         </div>
                       </div>
                       <div className="text-sm font-bold text-navy flex-shrink-0">
-                        $
+                        ₹
                         {(
                           (Number(item.product.price) * Number(item.quantity)) /
                           100
-                        ).toFixed(2)}
+                        ).toFixed(0)}
                       </div>
                     </div>
                   ))}
@@ -195,25 +195,25 @@ export default function CartSidebar({
                   <span className="text-muted-foreground text-sm">
                     Subtotal
                   </span>
-                  <span className="font-bold text-navy">${totalPrice}</span>
+                  <span className="font-bold text-navy">₹{totalPrice}</span>
                 </div>
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-muted-foreground text-sm">
                     Shipping
                   </span>
                   <span className="text-sm font-semibold text-green-600">
-                    {Number(cart?.totalPrice) >= 5000 ? "FREE" : "$4.99"}
+                    {Number(cart?.totalPrice) >= 49900 ? "FREE" : "₹49"}
                   </span>
                 </div>
                 <Separator className="mb-4" />
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-bold text-navy">Total</span>
                   <span className="text-xl font-extrabold text-navy">
-                    $
-                    {(Number(cart?.totalPrice) >= 5000
+                    ₹
+                    {(Number(cart?.totalPrice) >= 49900
                       ? Number(cart?.totalPrice) / 100
-                      : (Number(cart?.totalPrice) + 499) / 100
-                    ).toFixed(2)}
+                      : (Number(cart?.totalPrice) + 4900) / 100
+                    ).toFixed(0)}
                   </span>
                 </div>
                 <Button

@@ -240,7 +240,7 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
                             {product.name}
                           </p>
                           <p className="text-xs text-muted-foreground mt-0.5">
-                            ${(Number(product.price) / 100).toFixed(2)}
+                            ₹{(Number(product.price) / 100).toFixed(0)}
                           </p>
                         </TableCell>
 
