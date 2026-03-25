@@ -1,14 +1,25 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Heart,
+  Loader2,
+  LogIn,
+  LogOut,
   Search,
   ShoppingBag,
   ShoppingCart,
   User,
   X,
 } from "lucide-react";
+import { useInternetIdentity } from "../hooks/useInternetIdentity";
 import { useCart, useWishlist } from "../hooks/useQueries";
 
 interface HeaderProps {
@@ -24,10 +35,19 @@ export default function Header({
 }: HeaderProps) {
   const { data: cart } = useCart();
   const { data: wishlist } = useWishlist();
+  const { login, clear, identity, isLoggingIn, isInitializing } =
+    useInternetIdentity();
 
   const cartCount =
     cart?.items.reduce((sum, item) => sum + Number(item.quantity), 0) ?? 0;
   const wishlistCount = wishlist?.items.length ?? 0;
+
+  const isLoggedIn = !!identity;
+  const isLoading = isLoggingIn || isInitializing;
+
+  const principalSnippet = isLoggedIn
+    ? `${identity.getPrincipal().toString().slice(0, 8)}…`
+    : null;
 
   return (
     <header className="bg-white border-b border-border sticky top-0 z-40 shadow-xs">
@@ -62,14 +82,63 @@ export default function Header({
         </div>
 
         <div className="flex items-center gap-1">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="flex-col h-auto gap-0.5 px-2 py-1.5 hidden md:flex"
-          >
-            <User className="w-5 h-5" />
-            <span className="text-[10px] text-muted-foreground">Account</span>
-          </Button>
+          {/* Account button — always visible */}
+          <div className="block">
+            {isLoggedIn ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    data-ocid="account.open_modal_button"
+                    variant="ghost"
+                    size="sm"
+                    className="flex-col h-auto gap-0.5 px-2 py-1.5"
+                    disabled={isLoading}
+                  >
+                    <User className="w-5 h-5 text-navy" />
+                    <span className="text-[10px] text-muted-foreground max-w-[56px] truncate hidden md:block">
+                      {principalSnippet}
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-44">
+                  <div className="px-3 py-2">
+                    <p className="text-xs font-medium text-foreground">
+                      Signed in
+                    </p>
+                    <p className="text-[11px] text-muted-foreground truncate mt-0.5">
+                      {identity.getPrincipal().toString().slice(0, 20)}…
+                    </p>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    data-ocid="account.button"
+                    className="cursor-pointer text-red-600 focus:text-red-600"
+                    onClick={() => clear()}
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button
+                data-ocid="account.open_modal_button"
+                variant="default"
+                size="sm"
+                className="gap-1.5 bg-navy hover:bg-navy/90 text-white"
+                disabled={isLoading}
+                onClick={() => login()}
+              >
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <LogIn className="w-4 h-4" />
+                )}
+                <span>{isLoading ? "Loading…" : "Login"}</span>
+              </Button>
+            )}
+          </div>
+
           <Button
             variant="ghost"
             size="sm"

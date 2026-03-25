@@ -159,16 +159,12 @@ actor {
             products.add(existing);
           };
         };
-        // Rebuild from sorted snapshot
-        let snap = p; // keep reference
-        let _ = snap; // suppress warning
-        // Actually rebuild properly:
+        let snap = p;
+        let _ = snap;
         let allProducts = List.empty<Product>();
         for (existing in products.toArray().values()) {
           allProducts.add(existing);
         };
-        // We need to rebuild products list with updated item
-        // Use a different approach: replace in place via map
         let rawArr = products.toArray();
         products.clear();
         for (item in rawArr.values()) {
@@ -415,7 +411,6 @@ actor {
 
     userOrders.add(order);
 
-    // Clear cart after order
     carts.add(
       caller,
       {
@@ -616,9 +611,139 @@ actor {
         isTrending = true;
         isBestSeller = false;
       },
+      {
+        id = 12;
+        name = "Nike Shox Black Red";
+        category = #shoes;
+        price = 15000;
+        description = "Bold black Nike Shox with red spring cushioning";
+        imageUrl = "/assets/uploads/img_20260325_101039_531-019d234e-b869-7458-90c7-e54f4f544027-1.jpg";
+        rating = 4.7;
+        reviewCount = 8;
+        inStock = 15;
+        isTrending = true;
+        isBestSeller = true;
+      },
+      {
+        id = 13;
+        name = "New Balance 1906 Purple";
+        category = #shoes;
+        price = 13500;
+        description = "New Balance 1906 retro runner in purple and silver";
+        imageUrl = "/assets/uploads/img_20260325_101039_530-019d234e-b964-7118-a54f-e9a196165524-2.jpg";
+        rating = 4.6;
+        reviewCount = 6;
+        inStock = 12;
+        isTrending = true;
+        isBestSeller = false;
+      },
+      {
+        id = 14;
+        name = "Nike Ryz White Black";
+        category = #shoes;
+        price = 11000;
+        description = "Nike Ryz 365 chunky trainer in white and black";
+        imageUrl = "/assets/uploads/img_20260325_101039_547-019d234e-b9a6-75e1-801c-64362f03f06f-3.jpg";
+        rating = 4.3;
+        reviewCount = 9;
+        inStock = 20;
+        isTrending = false;
+        isBestSeller = false;
+      },
+      {
+        id = 15;
+        name = "Adidas Samba OG Pack";
+        category = #shoes;
+        price = 16000;
+        description = "Adidas Samba collab pack — burgundy yellow and blue croc";
+        imageUrl = "/assets/uploads/img_20260325_101039_537-019d234e-ba94-716f-8c46-6f5de7a4c55a-4.jpg";
+        rating = 4.8;
+        reviewCount = 14;
+        inStock = 10;
+        isTrending = true;
+        isBestSeller = true;
+      },
+      {
+        id = 16;
+        name = "Adidas Samba Cow Print";
+        category = #shoes;
+        price = 17000;
+        description = "Limited edition Adidas Samba in cow print with pink stripes";
+        imageUrl = "/assets/uploads/img_20260325_101039_535-019d234e-bab4-7268-a11d-5455a41ee287-5.jpg";
+        rating = 4.9;
+        reviewCount = 11;
+        inStock = 8;
+        isTrending = true;
+        isBestSeller = true;
+      },
+      {
+        id = 17;
+        name = "Nike Ryz Black";
+        category = #shoes;
+        price = 11000;
+        description = "Nike Ryz 365 chunky trainer all black";
+        imageUrl = "/assets/uploads/img_20260325_101039_547-019d234e-bad1-73aa-996b-27796c956c23-6.jpg";
+        rating = 4.3;
+        reviewCount = 7;
+        inStock = 18;
+        isTrending = false;
+        isBestSeller = false;
+      },
+      {
+        id = 18;
+        name = "Nike SB Dunk Low Pack";
+        category = #shoes;
+        price = 18000;
+        description = "Nike SB Dunk Low collection — multiple collab colorways";
+        imageUrl = "/assets/uploads/img_20260325_101039_548-019d234e-baf6-719d-9770-3cbdc3bf3754-7.jpg";
+        rating = 4.8;
+        reviewCount = 20;
+        inStock = 7;
+        isTrending = true;
+        isBestSeller = true;
+      },
+      {
+        id = 19;
+        name = "New Balance 9060 Blue Orange";
+        category = #shoes;
+        price = 14000;
+        description = "New Balance 9060 in electric blue and orange";
+        imageUrl = "/assets/uploads/img_20260325_101039_549-019d234e-bccd-7168-a308-f6e53a6fdd24-8.jpg";
+        rating = 4.5;
+        reviewCount = 5;
+        inStock = 14;
+        isTrending = true;
+        isBestSeller = false;
+      },
+      {
+        id = 20;
+        name = "New Balance 802 Pack";
+        category = #shoes;
+        price = 13000;
+        description = "New Balance 802 in black purple and bold blue";
+        imageUrl = "/assets/uploads/img_20260325_101039_552-019d234e-bdb8-7629-bd5f-b7422e187c6b-9.jpg";
+        rating = 4.4;
+        reviewCount = 4;
+        inStock = 16;
+        isTrending = false;
+        isBestSeller = false;
+      },
+      {
+        id = 21;
+        name = "Nike V2K Silver Blue";
+        category = #shoes;
+        price = 12500;
+        description = "Nike V2K Run in silver grey and royal blue";
+        imageUrl = "/assets/uploads/img_20260325_101039_532-019d234e-bdbc-7438-b565-84712fc54262-10.jpg";
+        rating = 4.6;
+        reviewCount = 6;
+        inStock = 22;
+        isTrending = true;
+        isBestSeller = false;
+      },
     ];
 
-    nextProductId := 12;
+    nextProductId := 22;
     products.clear();
 
     for (product in sampleProducts.values()) products.add(product);

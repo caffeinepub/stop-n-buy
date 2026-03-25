@@ -42,12 +42,12 @@ function AppInner() {
 
   useEffect(() => {
     if (!actor || isFetching || seeded) return;
-    const flag = localStorage.getItem("stopnbuy_seeded");
+    const flag = localStorage.getItem("stopnbuy_seeded_v3");
     if (!flag) {
       actor
         .seedProducts()
         .then(() => {
-          localStorage.setItem("stopnbuy_seeded", "1");
+          localStorage.setItem("stopnbuy_seeded_v3", "1");
           setSeeded(true);
           queryClient.invalidateQueries({ queryKey: ["products"] });
           queryClient.invalidateQueries({ queryKey: ["trending"] });
